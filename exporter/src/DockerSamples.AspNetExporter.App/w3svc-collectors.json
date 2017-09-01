@@ -1,0 +1,39 @@
+﻿{
+  "PerformanceCounterCollectors": [
+    {
+      "CategoryName": ".NET CLR Memory",
+      "InstanceName": "_Global_",
+      "CounterNames": [
+        "Gen 0 heap size",
+        "Gen 1 heap size",
+        "Gen 2 heap size",
+        "Large Object Heap size",
+        "% Time in GC"
+      ]
+    },
+    {
+      "CategoryName": "Process",
+      "InstanceName": "w3wp",
+      "CounterNames": [
+        "% Processor Time",
+        "Private Bytes",
+        "Thread Count",
+        "Working Set",
+        "Virtual Bytes"
+      ]
+    },    
+    {
+      "CategoryName": "W3SVC_W3WP",
+      "InstanceName": "_Total",
+      "CounterNames": [
+        "Requests / Sec",        
+        "% 403 HTTP Response Sent",
+        "% 404 HTTP Response Sent",
+        "% 500 HTTP Response Sent",
+        "Active Threads Count",
+        "Current File Cache Memory Usage",
+        "Maximum File Cache Memory Usage"
+      ]
+    }
+  ]
+}

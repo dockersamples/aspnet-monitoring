@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockerSamples.AspNetExporter.Common", "DockerSamples.AspNetExporter.Common\DockerSamples.AspNetExporter.Common.csproj", "{69B58D2E-2511-46AC-8DC3-0EB455CA141B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockerSamples.AspNetExporter.App", "DockerSamples.AspNetExporter.App\DockerSamples.AspNetExporter.App.csproj", "{15DCE13F-43DA-4DC3-89F5-17278E39E725}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{69B58D2E-2511-46AC-8DC3-0EB455CA141B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69B58D2E-2511-46AC-8DC3-0EB455CA141B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69B58D2E-2511-46AC-8DC3-0EB455CA141B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69B58D2E-2511-46AC-8DC3-0EB455CA141B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15DCE13F-43DA-4DC3-89F5-17278E39E725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15DCE13F-43DA-4DC3-89F5-17278E39E725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15DCE13F-43DA-4DC3-89F5-17278E39E725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15DCE13F-43DA-4DC3-89F5-17278E39E725}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

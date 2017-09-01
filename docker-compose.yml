@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  
+  web:
+    image: dockersamples/aspnet-monitoring-website
+    ports:
+    - "80:80"
+    networks:
+      - app-net    
+
+  prometheus:
+    image: dockersamples/aspnet-monitoring-prometheus
+    ports:
+    - "9090:9090"
+    networks:
+      - app-net 
+
+networks:
+  app-net:
+    external:
+      name: nat

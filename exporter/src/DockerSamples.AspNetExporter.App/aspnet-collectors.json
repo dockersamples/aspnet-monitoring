@@ -1,0 +1,45 @@
+﻿{
+  "PerformanceCounterCollectors": [
+    {
+      "CategoryName": ".NET CLR Memory",
+      "InstanceName": "_Global_",
+      "CounterNames": [
+        "Gen 0 heap size",
+        "Gen 1 heap size",
+        "Gen 2 heap size",
+        "Large Object Heap size",
+        "% Time in GC"
+      ]
+    },
+    {
+      "CategoryName": "Process",
+      "InstanceName": "w3wp",
+      "CounterNames": [
+        "% Processor Time",
+        "Private Bytes",
+        "Thread Count",
+        "Working Set",
+        "Virtual Bytes"
+      ]
+    },
+    {
+      "CategoryName": "ASP.NET ",
+      "CounterNames": [
+        "Requests Current",
+        "Requests Queued"
+      ]
+    },
+    {
+      "CategoryName": "ASP.NET Applications",
+      "InstanceName": "__Total__",
+      "CounterNames": [
+        "Request Execution Time",
+        "Requests Total",
+        "Requests Succeeded",
+        "Requests Rejected",
+        "Request Wait Time",
+        "Requests/Sec"
+      ]
+    }
+  ]
+}
