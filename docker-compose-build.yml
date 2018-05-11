@@ -1,0 +1,16 @@
+version: '3.2'
+
+services:
+  
+  exporter:
+    image: aspnet-monitoring-exporter
+    build:      
+      context: ./exporter
+
+  prometheus:
+    build:      
+      context: ./prometheus
+
+  web:
+    build:      
+      context: ./website

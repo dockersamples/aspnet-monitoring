@@ -1,5 +1,5 @@
 # escape=`
-FROM sixeyed/msbuild:netfx-4.5.2-10.0.14393.1480 AS builder
+FROM microsoft/dotnet-framework-build:4.7.1-windowsservercore-ltsc2016  AS builder
 
 WORKDIR C:\src
 COPY src\DockerSamples.AspNetExporter.App\packages.config .
@@ -9,7 +9,7 @@ COPY src C:\src
 RUN msbuild .\DockerSamples.AspNetExporter.App\DockerSamples.AspNetExporter.App.csproj /p:OutputPath=c:\out
 
 # app image
-FROM microsoft/windowsservercore:10.0.14393.1480
+FROM microsoft/windowsservercore:ltsc2016
 
 WORKDIR C:\aspnet-exporter
 COPY --from=builder C:\out\ .
