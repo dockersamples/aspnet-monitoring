@@ -6,8 +6,7 @@ COPY src\DockerSamples.SimpleWebsite.Web\packages.config .
 RUN nuget restore packages.config -PackagesDirectory ..\packages
 
 COPY src C:\src
-RUN msbuild DockerSamples.SimpleWebsite.Web.csproj /p:OutputPath=c:\out\web\SimpleWebsite `
-        /p:DeployOnBuild=true /p:Configuration=Release
+RUN msbuild DockerSamples.SimpleWebsite.Web.csproj /p:OutputPath=c:\out\web\SimpleWebsite /p:Configuration=Release
 
 # perf counter exporter
 FROM dockersamples/aspnet-monitoring-exporter AS exporter
