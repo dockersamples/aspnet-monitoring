@@ -1,11 +1,14 @@
 Write-Output '*** Pushing Images'
 
-$services = 'signup-app', 'signup-save-handler', 'signup-index-handler', 'signup-homepage'
+$images = "dockersamples/aspnet-monitoring-exporter", `
+          "dockersamples/aspnet-monitoring-website", `
+          "dockersamples/aspnet-monitoring-prometheus"
 
-foreach ($service in $services) {
+foreach ($image in $images) {
 
-    & docker-compose $config `
-        -f ..\docker-compose.yml `
-        -f ..\docker-compose-build.yml `
-        push $service
+    $versionedImage = $image + ":$env:BUILD_NUMBER"
+    & docker $config image push $versionedImage
+
+    & docker $config image tag $versionedImage $image
+    & docker $config image push $image
 }

@@ -3,7 +3,7 @@ version: '3.2'
 services:
   
   exporter:
-    image: aspnet-monitoring-exporter
+    image: dockersamples/aspnet-monitoring-exporter:${BUILD_NUMBER:-latest}
     build:      
       context: ./exporter
 
