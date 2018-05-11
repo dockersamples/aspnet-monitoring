@@ -1,5 +1,5 @@
 # escape=`
-FROM microsoft/dotnet-framework-build:4.7.1-windowsservercore-ltsc2016  AS builder
+FROM microsoft/dotnet-framework:4.7.2-sdk  AS builder
 
 WORKDIR C:\src
 COPY src\DockerSamples.AspNetExporter.App\packages.config .
