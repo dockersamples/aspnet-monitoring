@@ -1,26 +1,25 @@
 # escape=`
-FROM sixeyed/msbuild:netfx-4.5.2-webdeploy-10.0.14393.1480 AS builder
+FROM microsoft/dotnet-framework:4.7.2-sdk AS builder
 
 WORKDIR C:\src\DockerSamples.SimpleWebsite.Web
 COPY src\DockerSamples.SimpleWebsite.Web\packages.config .
 RUN nuget restore packages.config -PackagesDirectory ..\packages
 
 COPY src C:\src
-RUN msbuild DockerSamples.SimpleWebsite.Web.csproj /p:OutputPath=c:\out\web\SimpleWebsite `
-        /p:DeployOnBuild=true /p:VSToolsPath=C:\MSBuild.Microsoft.VisualStudio.Web.targets.14.0.0.3\tools\VSToolsPath
+RUN msbuild DockerSamples.SimpleWebsite.Web.csproj /p:OutputPath=c:\out /p:Configuration=Release
 
 # perf counter exporter
-FROM dockersamples/aspnet-monitoring-exporter AS exporter
+FROM dockersamples/aspnet-monitoring-exporter:4.7.2 AS exporter
 
 # app image
-FROM microsoft/aspnet:windowsservercore-10.0.14393.1480
+FROM microsoft/aspnet:4.7.2-windowsservercore-ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-RUN Set-ItemProperty -path 'HKLM:\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters' -Name ServerPriorityTimeLimit -Value 0 -Type DWord
+ENV APP_ROOT=C:\web-app
 
+WORKDIR ${APP_ROOT}
 RUN Remove-Website -Name 'Default Web Site';`
-    New-Item -Path 'C:\web-app' -Type Directory; `
-    New-Website -Name 'web-app' -Port 80 -PhysicalPath 'C:\web-app'
+    New-Website -Name 'web-app' -Port 80 -PhysicalPath $env:APP_ROOT
 
 WORKDIR C:\aspnet-exporter
 COPY --from=exporter C:\aspnet-exporter .
@@ -29,8 +28,8 @@ ENV COLLECTOR_CONFIG_PATH="w3svc-collectors.json"
 ENTRYPOINT ["powershell"]
 
 CMD Start-Service W3SVC; `
-    Invoke-WebRequest http://localhost:8090 -UseBasicParsing | Out-Null; `
+    Invoke-WebRequest http://localhost -UseBasicParsing | Out-Null; `
     Start-Process -NoNewWindow C:\aspnet-exporter\aspnet-exporter.exe; `
     C:\ServiceMonitor.exe w3svc
 
-COPY --from=builder C:\out\web\SimpleWebsite\_PublishedWebsites\DockerSamples.SimpleWebsite.Web C:\web-app
+COPY --from=builder C:\out\_PublishedWebsites\DockerSamples.SimpleWebsite.Web C:\web-app

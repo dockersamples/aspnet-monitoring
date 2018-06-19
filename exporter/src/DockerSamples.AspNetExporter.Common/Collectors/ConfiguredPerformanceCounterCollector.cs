@@ -1,10 +1,10 @@
-﻿using Prometheus;
+﻿using DockerSamples.AspNetExporter.Common.Configuration;
+using Prometheus;
 using Prometheus.Advanced;
-using DockerSamples.AspNetExporter.Common.Configuration;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Serilog;
 
 namespace DockerSamples.AspNetExporter.Common.Collectors
 {
@@ -28,8 +28,10 @@ namespace DockerSamples.AspNetExporter.Common.Collectors
             _recordCollections = recordCollections;
         }
 
-        public void RegisterMetrics()
+        public void RegisterMetrics(ICollectorRegistry registry)
         {
+            var metrics = Metrics.WithCustomRegistry(registry);
+
             if (_recordCollections)
             {
                 _performanceCounter = Metrics.CreateCounter("performance_counter", "Performance counter", "host", "category", "counter", "instance", "status");
@@ -49,8 +51,8 @@ namespace DockerSamples.AspNetExporter.Common.Collectors
                                             new PerformanceCounter(collector.CategoryName, counter, true) :
                                             new PerformanceCounter(collector.CategoryName, counter, collector.InstanceName, true);
 
-                        // TODO - use .CounterType to determine the type of metric to create
-                        var gauge = Metrics.CreateGauge(GetName(collector.CategoryName, counter), GetHelp(counter), "host", "instance");
+                        // TODO - use .CounterType to determine the type of metric to create                        
+                        var gauge = metrics.CreateGauge(GetName(collector.CategoryName, counter), GetHelp(counter), "host", "instance");
 
                         _collectors.Add(Tuple.Create(gauge, perfCounter));
                         RecordCollection(collector.CategoryName, counter, collector.InstanceName, "setup-succeeded");
