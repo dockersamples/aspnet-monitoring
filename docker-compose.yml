@@ -10,7 +10,7 @@ services:
       - app-net    
 
   prometheus:
-    image: dockersamples/aspnet-monitoring-prometheus:2.3.0
+    image: dockersamples/aspnet-monitoring-prometheus:2.3.1
     ports:
     - "9090"
     networks:
