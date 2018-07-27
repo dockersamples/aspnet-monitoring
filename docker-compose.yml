@@ -3,16 +3,16 @@ version: '3.3'
 services:
   
   web:
-    image: dockersamples/aspnet-monitoring-website:${BUILD_NUMBER:-latest}
+    image: dockersamples/aspnet-monitoring-website:4.7.2
     ports:
-    - "80:80"
+    - "80"
     networks:
       - app-net    
 
   prometheus:
-    image: dockersamples/aspnet-monitoring-prometheus:${BUILD_NUMBER:-latest}
+    image: dockersamples/aspnet-monitoring-prometheus:2.3.0
     ports:
-    - "9090:9090"
+    - "9090"
     networks:
       - app-net 
 

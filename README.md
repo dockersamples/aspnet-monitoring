@@ -2,7 +2,7 @@
 
 Monitoring ASP.NET Framework applications in Windows Docker containers, using Prometheus.
 
-This sample app shows you how to export Windows and .NET Performance Counters from a Docker Windows container, run [Prometheus]() in a Docker Windows container, and use Prometheus to monitor the ASP.NET web container:
+This sample app shows you how to export Windows and .NET Performance Counters from a Docker Windows container, run [Prometheus](https://prometheus.io) in a Docker Windows container, and use Prometheus to monitor the ASP.NET web container:
 
 ![Prometheus in a Docker Windows container](img/prometheus-in-a-windows-container.png)
 
@@ -51,7 +51,7 @@ In the startup configuration for the image, the exporter app is started in the b
 ENTRYPOINT ["powershell"]
 
 CMD Start-Service W3SVC; `
-    Invoke-WebRequest http://localhost:8090 -UseBasicParsing | Out-Null; `
+    Invoke-WebRequest http://localhost -UseBasicParsing | Out-Null; `
     Start-Process -NoNewWindow C:\aspnet-exporter\aspnet-exporter.exe; `
     C:\ServiceMonitor.exe w3sv
 ```

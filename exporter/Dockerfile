@@ -1,5 +1,5 @@
 # escape=`
-FROM microsoft/dotnet-framework:4.7.2-sdk  AS builder
+FROM microsoft/dotnet-framework:4.7.2-sdk AS builder
 
 WORKDIR C:\src
 COPY src\DockerSamples.AspNetExporter.App\packages.config .
@@ -9,7 +9,7 @@ COPY src C:\src
 RUN msbuild .\DockerSamples.AspNetExporter.App\DockerSamples.AspNetExporter.App.csproj /p:OutputPath=c:\out
 
 # app image
-FROM microsoft/windowsservercore:ltsc2016
+FROM microsoft/dotnet-framework:4.7.2-runtime
 
 WORKDIR C:\aspnet-exporter
 COPY --from=builder C:\out\ .

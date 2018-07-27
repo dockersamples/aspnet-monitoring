@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DockerSamples.AspNetExporter.App
 {
+    //TODO - replace with .NET Standard config
     public class Config
     {
         private static Dictionary<string, string> _Values = new Dictionary<string, string>();

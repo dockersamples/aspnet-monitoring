@@ -8,10 +8,11 @@ RUN Invoke-WebRequest "http://7-zip.org/a/7z$($env:7ZIP_VERSION)-x64.msi" -OutFi
     Start-Process msiexec.exe -ArgumentList '/i', '7z.msi', '/quiet', '/norestart' -NoNewWindow -Wait; `
     Remove-Item 7z.msi
 
-ENV PROMETHEUS_VERSION="2.2.1" `
-    PROMETHEUS_SHA256="03cf9f24a160944333e4db4358182b9e2d713872d27f126f7493e574493ae2c2"
+ENV PROMETHEUS_VERSION="2.3.0" `
+    PROMETHEUS_SHA256="463aaea6d70590e44e973f7930cbfaa4bf35b2f5813de1183b6fa91db4340dcf"
 
-RUN Invoke-WebRequest "https://github.com/prometheus/prometheus/releases/download/v$($env:PROMETHEUS_VERSION)/prometheus-$($env:PROMETHEUS_VERSION).windows-amd64.tar.gz" -OutFile 'prometheus.tar.gz' -UseBasicParsing; `
+RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
+    Invoke-WebRequest "https://github.com/prometheus/prometheus/releases/download/v$($env:PROMETHEUS_VERSION)/prometheus-$($env:PROMETHEUS_VERSION).windows-amd64.tar.gz" -OutFile 'prometheus.tar.gz' -UseBasicParsing; `
     if ((Get-FileHash prometheus.tar.gz -Algorithm sha256).Hash.ToLower() -ne $env:PROMETHEUS_SHA256) {exit 1}; `
     & 'C:\Program Files\7-Zip\7z.exe' x prometheus.tar.gz; `
     & 'C:\Program Files\7-Zip\7z.exe' x prometheus.tar; `
@@ -31,8 +32,8 @@ EXPOSE     9090
 VOLUME     C:\prometheus
 
 ENTRYPOINT ["C:\\bin\\prometheus.exe", `
-            "-storage.local.path=/prometheus", `
-            "-web.console.libraries=/etc/prometheus/console_libraries", `
-            "-web.console.templates=/etc/prometheus/consoles" ]
+            "--storage.tsdb.path=/prometheus", `
+            "--web.console.libraries=/etc/prometheus/console_libraries", `
+            "--web.console.templates=/etc/prometheus/consoles" ]
 
-CMD ["-config.file=/etc/prometheus/prometheus.yml"]
+CMD ["--config.file=/etc/prometheus/prometheus.yml"]

@@ -1,14 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using DockerSamples.AspNetExporter.Common.Collectors;
+using DockerSamples.AspNetExporter.Common.Configuration;
+using Newtonsoft.Json;
 using Prometheus;
 using Prometheus.Advanced;
-using DockerSamples.AspNetExporter.Common.Collectors;
-using DockerSamples.AspNetExporter.Common.Configuration;
-using System.Collections.Generic;
+using Serilog;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using static System.Console;
-using Serilog;
 
 namespace DockerSamples.AspNetExporter.App
 {
@@ -36,12 +35,11 @@ namespace DockerSamples.AspNetExporter.App
                 return;
             }
 
-            var collectors = new List<IOnDemandCollector>()
-            {
-                new ConfiguredPerformanceCounterCollector(collectorConfig, Config.RecordCollections, logger)
-            };
-
-            var server = new MetricServer(Config.MetricsPort, collectors);
+            DefaultCollectorRegistry.Instance.Clear();
+            DefaultCollectorRegistry.Instance.RegisterOnDemandCollectors(
+                new ConfiguredPerformanceCounterCollector(collectorConfig, Config.RecordCollections, logger));
+            
+            var server = new MetricServer(Config.MetricsPort);
             server.Start();
             logger.Information("Metrics server listening on port: {Port}", Config.MetricsPort);
 
