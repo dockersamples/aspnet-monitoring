@@ -67,14 +67,14 @@ This packages Prometheus to run in a Docker Windows container, based on the work
 Run `docker-compose up -d` from this directory, and that will start the web and Prometheus containers. You can browse to the website container running locally by opening the IP address with PowerShell:
 
 ```
-$webIp = docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' aspnetmonitoring_web_1
+$webIp = docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' aspnet-monitoring_web_1
 start "http://$webIp"
 ```
 
 Refresh the page a few times and then browse to the Prometheus container:
 
 ```
-$promIp = docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' aspnetmonitoring_prometheus_1
+$promIp = docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' aspnet-monitoring_prometheus_1
 start "http://$($promIp):9090"
 ```
 
