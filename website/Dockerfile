@@ -1,20 +1,12 @@
 # escape=`
-<<<<<<< HEAD
-FROM microsoft/dotnet-framework:4.7.2-sdk AS build
-=======
 FROM microsoft/dotnet-framework:4.7.2-sdk AS builder
->>>>>>> 0bc32715c64f97d36407ac1190b30937c09c24ed
 
 WORKDIR C:\src\DockerSamples.SimpleWebsite.Web
 COPY src\DockerSamples.SimpleWebsite.Web\packages.config .
 RUN nuget restore packages.config -PackagesDirectory ..\packages
 
 COPY src C:\src
-<<<<<<< HEAD
-RUN msbuild DockerSamples.SimpleWebsite.Web.csproj /p:OutputPath=c:\out\web\SimpleWebsite /p:Configuration=Release
-=======
 RUN msbuild DockerSamples.SimpleWebsite.Web.csproj /p:OutputPath=c:\out /p:Configuration=Release
->>>>>>> 0bc32715c64f97d36407ac1190b30937c09c24ed
 
 # perf counter exporter
 FROM dockersamples/aspnet-monitoring-exporter:4.7.2 AS exporter
