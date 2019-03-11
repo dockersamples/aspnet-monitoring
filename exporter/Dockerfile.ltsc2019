@@ -9,7 +9,7 @@ COPY src C:\src
 RUN msbuild .\DockerSamples.AspNetExporter.App\DockerSamples.AspNetExporter.App.csproj /p:OutputPath=c:\out
 
 # app image
-FROM microsoft/dotnet-framework:4.7.2-runtime
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
 WORKDIR C:\aspnet-exporter
 COPY --from=builder C:\out\ .
